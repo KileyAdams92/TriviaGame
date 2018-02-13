@@ -1,0 +1,18 @@
+body {
+    background-image: url("../images/pattern.png");
+}
+
+.container {
+    background:none repeat 0 0 rgb(234, 243, 249);
+    border:14px double #cc5c90;
+    width: 800px;
+    height: 800px;
+}
+
+h1 {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+}
