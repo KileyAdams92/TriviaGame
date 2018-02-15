@@ -7,21 +7,21 @@
 //display correct answers, incorrect answers, and unanswered questions at the end
 
 //creating the object for all of the data to go into, including all of the requirements for the game
-var createObject = function(question,answer,choice1,choice2,choice3,choice4) {
-   var createO = {
-    q : question,
-    answ : answer,
-    choice1 : 1,
-    choice2 : 2,
-    choice3 : 3,
-    choice4 : 4,
-    rightChoice: right, 
-    youWin : correct,
-    youLost : wrong,
-    img : src,
-};
-//returning the variable for when the createObject function is called
-return createO;
+var createObject = function (question, answer, choice1, choice2, choice3, choice4) {
+    var createO = {
+        q: question,
+        answ: answer,
+        choice1: 1,
+        choice2: 2,
+        choice3: 3,
+        choice4: 4,
+        rightChoice: right,
+        youWin: correct,
+        youLost: wrong,
+        img: src,
+    };
+    //returning the variable for when the createObject function is called
+    return createO;
 };
 //creating an empty array to hold the information being sent to the createObject object
 var objectFluff = [];
@@ -32,13 +32,13 @@ objectFluff.push(createObject(
     "'Facebook', 'Tumblr', 'Baidu', 'Snapchat'",
     "1",
     "2",
-    "3", 
+    "3",
     "4",
     "1",
     "Congratulations, you were right! Mark Zuckerberg did create Facebook!",
     "Ouch, wrong choice. Mark Zuckerberg actually created Facebook!",
     "../images/facebookicon.png"
-)) 
+))
 
 objectFluff.push(createObject(
     "What is the world's most popular search engine?",
@@ -70,7 +70,7 @@ objectFluff.push(createObject(
     "What networking website is known for allowing users to organize events to bring like-minded people together, both professionally and personally?",
     "'LinkedIn', 'Facebook', 'Twylah', 'Meetups'",
     "1",
-    "2", 
+    "2",
     "3",
     "4",
     "4",
@@ -79,36 +79,37 @@ objectFluff.push(createObject(
     "../images/meetupicon.png"
 ))
 
-var correctAnswers = 0;
-var inccorectAnswers = 0;
-var unanswered = 0;
-
+//when startButton is clicked:
 $("#startButton").click(function () {
     startGame();
 });
 
 function startGame() {
-    for (i = 0; i < 5; i++) {
-        $("#question").
-        // is this correct use of a time out? in a for loop?
-        setTimeout(function () {
-            i++
-        }, 30000);
-        //if user answers question correctly, update #results(should there be a separate ID for end results?) with you are correct and 
-        if () {
-            //show icon
-            $("#pictures").html('<img src="assets/images/' + icon[i] + '" />');
-            //increase correctAnswers by 1
-            correctAnswers++;
-        }
-        //else, update #results with "nope, the correct answer was: " and show icon
-        else {
-            $("#pictures").html('<img src="assets/images/' + icon[i] + '" />');
-            //increase incorrectAnswers by 1
-            incorrectAnswers++;
-        }
+    //timer section
+    //variables
+    var timeRemaining = 30;
+    var correctAnswers = 0;
+    var inccorectAnswers = 0;
+    var unanswered = 0;
+    var userGuess = 0;
 
-        //do I need an else/if?
+    var interval = setInterval(decrement, 1000);
+
+    function go() {
+        timeRemaining--;
+        $("timeRemain").html("<h1>Time will run out in: " + timeRemaining + " seconds</h2>");
+        if (timeRemaining === 0){
+            //move on to the next slide
+        }
+    }
+
+
+
+    for (i = 0; i < 5; i++) {
+        $("#qAndA").append(createObject());
+        // is this correct use of a time out? in a for loop?
+
+
 
         //add a delay between questions/answers (HOW DO I USE DELAY IN THIS INSTANCE) or is setTimeout better?
     }

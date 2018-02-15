@@ -16,3 +16,8 @@ h1 {
 footer {
     text-align: center;
 }
+
+#startButton {
+    padding-top: 100px;
+    text-align: center;
+}
