@@ -63,19 +63,21 @@ function generateQuestions() {
 //when startButton is clicked:
 $("#startButton").click(function () {
     generateQuestions();
+    $("#startButton").hide();
 });
 
 function startTimer() {
     var timer = setInterval(function() {
         $("#timer").html(state.timer);
         console.log(state.timer)
-        state.timer--
-        if (state.timer <= 0) {
+       
+if (state.timer = 0) {
             clearInterval(timer);
             alert("Times up, next question!")
             nextQuestion();
         }
     }, 1000)
+    
 }
 function nextQuestion() {
     state.currentQuestion++
@@ -86,12 +88,12 @@ $(document).on("click",".choice", function() {
         alert("It's correct!")
         state.currentQuestion++;
         $("#choices").html("");
-        generateQuestions();
+        nextQuestion();
     } else {
         alert("Wrong, next question")
         state.currentQuestion++;
         $("#choices").html("");
-        generateQuestions();
+        nextQuestion();
     }
     if (state.currentQuestion < state.currentQuestion.length) {
         generateQuestions();
@@ -106,5 +108,4 @@ function generateResults() {
 
 generateQuestions();
 
-
-
+});
