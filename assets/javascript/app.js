@@ -88,7 +88,7 @@ $(document).on("click",".choice", function() {
         $("#choices").html("");
         generateQuestions();
     } else {
-        alert("You're dumb")
+        alert("Wrong, next question")
         state.currentQuestion++;
         $("#choices").html("");
         generateQuestions();
@@ -96,7 +96,7 @@ $(document).on("click",".choice", function() {
     if (state.currentQuestion < state.currentQuestion.length) {
         generateQuestions();
     
-})
+}
 
 function generateResults() {
     var currentQuestion = state.questions[state.currentQuestion];
