@@ -8,27 +8,31 @@ var state = {
       question:
         "What social media website was created by Mark Zuckerberg and used for maintaining connections between friends and family?",
       choices: ["Facebook", "Tumblr", "Baidu", "Snapchat"],
-      correctAnswer: "Facebook"
+      correctAnswer: "Facebook",
+      image: "facebookicon.png"
     },
     {
       question: "What is the world's most popular search engine?",
       choices: ["Bing", "Yahoo", "DuckDuckGo", "Google"],
-      correctAnswer: "Google"
+      correctAnswer: "Google",
+      image: "googleicon.png"
     },
     {
       question: "What is a well known professional-networking website?",
       choices: ["Indeed", "Dice", "LinkedIn", "Meetup"],
-      correctAnswer: "LinkedIn"
+      correctAnswer: "LinkedIn",
+      image: "linkedinicon.png"
     },
     {
       question:
         "What networking website is known for allowing users to organize events to bring like-minded people together, both professionally and personally?",
       choices: ["LinkedIn", "Facebook", "Twylah", "Meetups"],
-      correctAnswer: "Meetups"
+      correctAnswer: "Meetups",
+      image: "meetupicon.png"
     }
   ],
   currentQuestion: 0,
-  defaultTime: 5, //TODO: set to 30 before I turn it
+  defaultTime: 10, //TODO: set to 30 before I turn it
   answeredWrong: 0,
   answeredRight: 0,
   unanswered: 0
@@ -55,17 +59,26 @@ $("#startButton").click(function() {
 });
 
 function onTimerTick() {
+  var currentQuestion = state.questions[state.currentQuestion];
   // Every second while the timer is running do the following:
-  state.questions[state.currentQuestion].timeTracker--;
-  $("#timer").html(state.questions[state.currentQuestion].timeTracker);
-  console.log(state.questions[state.currentQuestion].timeTracker);
+  if (currentQuestion.timeTracker > 0) {
+    currentQuestion.timeTracker--;
+    $("#timer").html(currentQuestion.timeTracker);
+    console.log(currentQuestion.timeTracker);
+  }
 
-  if (state.questions[state.currentQuestion].timeTracker === 0) {
-    $("#question").html("Nice Try, but the correct answer was");
-    alert("Times up, next question!");
+  if (currentQuestion.timeTracker === 0) {
+    $("#question").html(
+      "<h1>" +
+        "Time's up, but the correct answer was actually " +
+        currentQuestion.correctAnswer +
+        "</h1>"
+    );
+    var timeOut = setTimeout(function() {
+      nextQuestion();
+    }, 5000);
+    // alert("Times up, next question!");
     state.unanswered++;
-
-    nextQuestion();
   }
 }
 
@@ -115,13 +128,30 @@ $(document).on("click", ".choice", function() {
     value === state.questions[state.currentQuestion].correctAnswer;
 
   if (isCorrectAnswer) {
-    alert("It's correct!");
+    // alert("It's correct!");
+    $("#question").html(
+      "<h1>" +
+        "Great job,  the correct answer is " +
+        state.questions[state.currentQuestion].correctAnswer +
+        "</h1>"
+    );
+    var timeOut = setTimeout(function() {
+      nextQuestion();
+    }, 5000);
     state.answeredRight++;
   } else {
-    alert("Wrong, next question");
+    // alert("Wrong, next question");
+    $("#question").html(
+      "<h1>" +
+        "Nice try, but the correct answer was actually " +
+        state.questions[state.currentQuestion].correctAnswer +
+        "</h1>"
+    );
+    var timeOut = setTimeout(function() {
+      nextQuestion();
+    }, 5000);
     state.answeredWrong++;
   }
-  nextQuestion();
 });
 
 //after second question it doesn't move to the next
