@@ -61,11 +61,9 @@ $("#startButton").click(function() {
 function onTimerTick() {
   var currentQuestion = state.questions[state.currentQuestion];
   // Every second while the timer is running do the following:
-  if (currentQuestion.timeTracker > 0) {
-    currentQuestion.timeTracker--;
-    $("#timer").html(currentQuestion.timeTracker);
-    console.log(currentQuestion.timeTracker);
-  }
+  currentQuestion.timeTracker--;
+  $("#timer").html(currentQuestion.timeTracker);
+  console.log(currentQuestion.timeTracker);
 
   if (currentQuestion.timeTracker === 0) {
     console.log(
@@ -137,30 +135,24 @@ $(document).on("click", ".choice", function() {
     $("#question").html(
       "<h1>" +
         "Great job,  the correct answer is " +
-        state.questions[state.currentQuestion].correctAnswer +
+        currentQuestion.correctAnswer +
         "</h1>"
     );
-    $("#pictures").html(
-      "<img src='" + state.questions[state.currentQuestion].image + "'/>"
-    );
-    var timeOut = setTimeout(function() {
-      nextQuestion();
-    }, 5000);
     state.answeredRight++;
   } else {
     // alert("Wrong, next question");
     $("#question").html(
       "<h1>" +
         "Nice try, but the correct answer was actually " +
-        state.questions[state.currentQuestion].correctAnswer +
+        currentQuestion.correctAnswer +
         "</h1>"
     );
-    $("#pictures").html("<img src='" + currentQuestion.image + "'/>");
-    var timeOut = setTimeout(function() {
-      nextQuestion();
-    }, 5000);
     state.answeredWrong++;
   }
+  $("#pictures").html("<img src='" + currentQuestion.image + "'/>");
+  var timeOut = setTimeout(function() {
+    nextQuestion();
+  }, 5000);
 });
 
 //after second question it doesn't move to the next
