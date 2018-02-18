@@ -9,30 +9,30 @@ var state = {
         "What social media website was created by Mark Zuckerberg and used for maintaining connections between friends and family?",
       choices: ["Facebook", "Tumblr", "Baidu", "Snapchat"],
       correctAnswer: "Facebook",
-      image: "facebookicon.png"
+      image: "assets/images/facebookicon.png"
     },
     {
       question: "What is the world's most popular search engine?",
       choices: ["Bing", "Yahoo", "DuckDuckGo", "Google"],
       correctAnswer: "Google",
-      image: "googleicon.png"
+      image: "assets/images/googleicon.png"
     },
     {
       question: "What is a well known professional-networking website?",
       choices: ["Indeed", "Dice", "LinkedIn", "Meetup"],
       correctAnswer: "LinkedIn",
-      image: "linkedinicon.png"
+      image: "assets/iamges/linkedinicon.png"
     },
     {
       question:
         "What networking website is known for allowing users to organize events to bring like-minded people together, both professionally and personally?",
       choices: ["LinkedIn", "Facebook", "Twylah", "Meetups"],
       correctAnswer: "Meetups",
-      image: "meetupicon.png"
+      image: "assets/images/meetupicon.png"
     }
   ],
   currentQuestion: 0,
-  defaultTime: 10, //TODO: set to 30 before I turn it
+  defaultTime: 30, //TODO: set to 30 before I turn it
   answeredWrong: 0,
   answeredRight: 0,
   unanswered: 0
@@ -74,6 +74,8 @@ function onTimerTick() {
         currentQuestion.correctAnswer +
         "</h1>"
     );
+    $("#pictures").html("<img src='" + currentQuestion.image + "'/>");
+
     var timeOut = setTimeout(function() {
       nextQuestion();
     }, 5000);
@@ -99,6 +101,7 @@ function nextQuestion() {
   clearTimer(state.questions[state.currentQuestion].timerId);
   state.currentQuestion++;
   $("#choices").html("");
+  // $("#pictures").html("");
   var hasMoreQuestions = state.currentQuestion < state.questions.length;
   if (hasMoreQuestions) {
     generateQuestions();
@@ -135,6 +138,9 @@ $(document).on("click", ".choice", function() {
         state.questions[state.currentQuestion].correctAnswer +
         "</h1>"
     );
+    $("#pictures").html(
+      "<img src='" + state.questions[state.currentQuestion].image + "'/>"
+    );
     var timeOut = setTimeout(function() {
       nextQuestion();
     }, 5000);
@@ -147,6 +153,7 @@ $(document).on("click", ".choice", function() {
         state.questions[state.currentQuestion].correctAnswer +
         "</h1>"
     );
+    $("#pictures").html("<img src='" + currentQuestion.image + "'/>");
     var timeOut = setTimeout(function() {
       nextQuestion();
     }, 5000);
