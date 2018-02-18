@@ -21,7 +21,7 @@ var state = {
       question: "What is a well known professional-networking website?",
       choices: ["Indeed", "Dice", "LinkedIn", "Meetup"],
       correctAnswer: "LinkedIn",
-      image: "assets/iamges/linkedinicon.png"
+      image: "assets/images/linkedinicon.png"
     },
     {
       question:
@@ -32,7 +32,7 @@ var state = {
     }
   ],
   currentQuestion: 0,
-  defaultTime: 30, //TODO: set to 30 before I turn it
+  defaultTime: 10, //TODO: set to 30 before I turn it
   answeredWrong: 0,
   answeredRight: 0,
   unanswered: 0
@@ -68,6 +68,10 @@ function onTimerTick() {
   }
 
   if (currentQuestion.timeTracker === 0) {
+    console.log(
+      "time left is 0, showing message and going to next question 5 seconds"
+    );
+    clearInterval(currentQuestion.timerId);
     $("#question").html(
       "<h1>" +
         "Time's up, but the correct answer was actually " +
@@ -76,7 +80,8 @@ function onTimerTick() {
     );
     $("#pictures").html("<img src='" + currentQuestion.image + "'/>");
 
-    var timeOut = setTimeout(function() {
+    setTimeout(function() {
+      console.log("moving on to the next question");
       nextQuestion();
     }, 5000);
     // alert("Times up, next question!");
@@ -94,14 +99,11 @@ function startTimer() {
   console.log(state.questions[state.currentQuestion].timerId);
 }
 
-function clearTimer(timerId) {
-  clearInterval(timerId);
-}
 function nextQuestion() {
-  clearTimer(state.questions[state.currentQuestion].timerId);
+  clearInterval(state.questions[state.currentQuestion].timerId);
   state.currentQuestion++;
   $("#choices").html("");
-  // $("#pictures").html("");
+  $("#pictures").html("");
   var hasMoreQuestions = state.currentQuestion < state.questions.length;
   if (hasMoreQuestions) {
     generateQuestions();
@@ -126,10 +128,10 @@ function generateResults() {
   $("#timer").hide();
 }
 $(document).on("click", ".choice", function() {
+  var currentQuestion = state.questions[state.currentQuestion];
   var value = $(this).attr("value");
-  var isCorrectAnswer =
-    value === state.questions[state.currentQuestion].correctAnswer;
-
+  var isCorrectAnswer = value === currentQuestion.correctAnswer;
+  clearInterval(currentQuestion.timerId);
   if (isCorrectAnswer) {
     // alert("It's correct!");
     $("#question").html(
