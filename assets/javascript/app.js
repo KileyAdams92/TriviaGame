@@ -54,11 +54,19 @@ $("#startButton").click(function() {
   $("#startButton").hide();
 });
 
-//unable to get reset button to reset page, will revisit
 $("#resetButton").click(function() {
-  generateQuestions();
+  state.currentQuestion = 0;
+  $("#question").show();
   onTimerTick();
+  $("#timer").show();
   $("#resetButton").hide();
+  $("#results").hide();
+  var hasMoreQuestions = state.currentQuestion < state.questions.length;
+  if (hasMoreQuestions) {
+    generateQuestions();
+  } else {
+    generateResults();
+  }
 });
 
 function onTimerTick() {
