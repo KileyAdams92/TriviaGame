@@ -61,14 +61,10 @@ $("#startButton").click(function() {
 function onTimerTick() {
   var currentQuestion = state.questions[state.currentQuestion];
   // Every second while the timer is running do the following:
-  currentQuestion.timeTracker--;
-  $("#timer").html(currentQuestion.timeTracker);
-  console.log(currentQuestion.timeTracker);
 
+  $("#timer").html("Time Remaining : " + currentQuestion.timeTracker);
+  currentQuestion.timeTracker--;
   if (currentQuestion.timeTracker === 0) {
-    console.log(
-      "time left is 0, showing message and going to next question 5 seconds"
-    );
     clearInterval(currentQuestion.timerId);
     $("#question").html(
       "<h1>" +
@@ -79,7 +75,6 @@ function onTimerTick() {
     $("#pictures").html("<img src='" + currentQuestion.image + "'/>");
 
     setTimeout(function() {
-      console.log("moving on to the next question");
       nextQuestion();
     }, 5000);
     // alert("Times up, next question!");
@@ -94,7 +89,6 @@ function startTimer() {
     onTimerTick,
     1000
   );
-  console.log(state.questions[state.currentQuestion].timerId);
 }
 
 function nextQuestion() {
@@ -130,6 +124,9 @@ $(document).on("click", ".choice", function() {
   var value = $(this).attr("value");
   var isCorrectAnswer = value === currentQuestion.correctAnswer;
   clearInterval(currentQuestion.timerId);
+  $(".choice").on("click", function() {
+    $(this).prop("disabled", true);
+  });
   if (isCorrectAnswer) {
     // alert("It's correct!");
     $("#question").html(

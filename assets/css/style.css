@@ -29,3 +29,32 @@ footer {
 .info {
   text-align: center;
 }
+
+#logo {
+  font-family: "Bungee Shade", cursive;
+  color: #ff66b3;
+  font-size: 80px;
+}
+
+#question {
+  font-family: "Cabin Sketch", cursive;
+  font-size: 40px;
+  padding: 50px;
+}
+
+#timer {
+  font-family: "Cabin Sketch", cursive;
+  padding-top: 40px;
+  font-size: 30px;
+}
+
+#results {
+  font-family: "Cabin Sketch", cursive;
+  color: #ff66b3;
+  font-size: 30px;
+  padding-top: 50px;
+}
+
+.startButton {
+  background-color: #ff66b3;
+}
