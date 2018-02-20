@@ -1,7 +1,3 @@
-// create a start button at the start of the game before questions pop up
-//create time remaining variable that decreases while person is answering questions
-
-//create start over button to reset the page DO NOT RELOAD PAGE
 var state = {
   questions: [
     {
@@ -32,7 +28,7 @@ var state = {
     }
   ],
   currentQuestion: 0,
-  defaultTime: 10, //TODO: set to 30 before I turn it
+  defaultTime: 10,
   answeredWrong: 0,
   answeredRight: 0,
   unanswered: 0
@@ -85,7 +81,6 @@ function onTimerTick() {
     setTimeout(function() {
       nextQuestion();
     }, 5000);
-    // alert("Times up, next question!");
     state.unanswered++;
   }
 }
@@ -112,10 +107,9 @@ function nextQuestion() {
     generateResults();
   }
 }
-
+//results page information
 function generateResults() {
   $("#resetButton").show();
-  // var currentQuestion = state.questions[state.currentQuestion];
   $("#results").html(
     " Amount Correct : " +
       state.answeredRight +
@@ -134,12 +128,13 @@ function generateResults() {
 $(document).ready(function() {
   $("#resetButton").hide();
 });
-
+//when a click occurs on the document,
 $(document).on("click", ".choice", function() {
   var currentQuestion = state.questions[state.currentQuestion];
   var value = $(this).attr("value");
   var isCorrectAnswer = value === currentQuestion.correctAnswer;
   clearInterval(currentQuestion.timerId);
+  //when one of the answer buttons is clicked,
   $(".choice").on("click", function() {
     $(this).prop("disabled", true);
   });
@@ -167,7 +162,3 @@ $(document).on("click", ".choice", function() {
     nextQuestion();
   }, 5000);
 });
-
-//after second question it doesn't move to the next
-//generate results not working
-//
