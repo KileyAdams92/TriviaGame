@@ -9,26 +9,26 @@ var state = {
         "What social media website was created by Mark Zuckerberg and used for maintaining connections between friends and family?",
       choices: ["Facebook", "Tumblr", "Baidu", "Snapchat"],
       correctAnswer: "Facebook",
-      image: "assets/images/facebookicon.png"
+      image: "assets/images/giphy/facebookgif.gif"
     },
     {
       question: "What is the world's most popular search engine?",
       choices: ["Bing", "Yahoo", "DuckDuckGo", "Google"],
       correctAnswer: "Google",
-      image: "assets/images/googleicon.png"
+      image: "assets/images/giphy/googlegif.gif"
     },
     {
       question: "What is a well known professional-networking website?",
       choices: ["Indeed", "Dice", "LinkedIn", "Meetup"],
       correctAnswer: "LinkedIn",
-      image: "assets/images/linkedinicon.png"
+      image: "assets/images/giphy/linkedin.gif"
     },
     {
       question:
         "What networking website is known for allowing users to organize events to bring like-minded people together, both professionally and personally?",
       choices: ["LinkedIn", "Facebook", "Twylah", "Meetups"],
       correctAnswer: "Meetups",
-      image: "assets/images/meetupicon.png"
+      image: "assets/images/giphy/meetupsgif.gif"
     }
   ],
   currentQuestion: 0,
@@ -58,6 +58,13 @@ $("#startButton").click(function() {
   $("#startButton").hide();
 });
 
+//unable to get reset button to reset page, will revisit
+$("#resetButton").click(function() {
+  generateQuestions();
+  onTimerTick();
+  $("#resetButton").hide();
+});
+
 function onTimerTick() {
   var currentQuestion = state.questions[state.currentQuestion];
   // Every second while the timer is running do the following:
@@ -66,6 +73,7 @@ function onTimerTick() {
   currentQuestion.timeTracker--;
   if (currentQuestion.timeTracker === 0) {
     clearInterval(currentQuestion.timerId);
+    $("#choices").hide();
     $("#question").html(
       "<h1>" +
         "Time's up, but the correct answer was actually " +
@@ -94,6 +102,7 @@ function startTimer() {
 function nextQuestion() {
   clearInterval(state.questions[state.currentQuestion].timerId);
   state.currentQuestion++;
+  $("#choices").show();
   $("#choices").html("");
   $("#pictures").html("");
   var hasMoreQuestions = state.currentQuestion < state.questions.length;
@@ -105,6 +114,7 @@ function nextQuestion() {
 }
 
 function generateResults() {
+  $("#resetButton").show();
   // var currentQuestion = state.questions[state.currentQuestion];
   $("#results").html(
     " Amount Correct : " +
@@ -116,9 +126,15 @@ function generateResults() {
       "Amount Unanswered : " +
       state.unanswered
   );
+
   $("#question").hide();
   $("#timer").hide();
 }
+
+$(document).ready(function() {
+  $("#resetButton").hide();
+});
+
 $(document).on("click", ".choice", function() {
   var currentQuestion = state.questions[state.currentQuestion];
   var value = $(this).attr("value");
@@ -128,22 +144,22 @@ $(document).on("click", ".choice", function() {
     $(this).prop("disabled", true);
   });
   if (isCorrectAnswer) {
-    // alert("It's correct!");
     $("#question").html(
       "<h1>" +
         "Great job,  the correct answer is " +
         currentQuestion.correctAnswer +
         "</h1>"
     );
+    $("#choices").hide();
     state.answeredRight++;
   } else {
-    // alert("Wrong, next question");
     $("#question").html(
       "<h1>" +
         "Nice try, but the correct answer was actually " +
         currentQuestion.correctAnswer +
         "</h1>"
     );
+    $("#choices").hide();
     state.answeredWrong++;
   }
   $("#pictures").html("<img src='" + currentQuestion.image + "'/>");
