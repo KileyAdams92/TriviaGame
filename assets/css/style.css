@@ -71,5 +71,12 @@ footer {
 
 #pictures {
   max-width: 600px;
-  text-align: center;
+  margin: auto;
+}
+
+@media screen and (max-width: 450px) {
+  #logo {
+    font-size: 60px;
+  }
+  )
 }
