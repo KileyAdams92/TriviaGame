@@ -6,7 +6,7 @@ body {
   background: none repeat 0 0 rgb(234, 243, 249);
   border: 14px double #cc5c90;
   width: 100%;
-  height: 800px;
+  height: 100%;
 }
 
 h1 {
