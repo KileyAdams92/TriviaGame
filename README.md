@@ -15,8 +15,12 @@ Built with
 * HTML
 * jQuery
 * Timers
+
+
 Installation
 The user can follow the link provided (https://kileyadams92.github.io/TriviaGame/). On the landing page, the user is greeted with a large START button. The user clicks the button and is then provided questions one at a time. The user has 10 seconds to answer each question. When an answer is provided, the user is provided with a statement identifying if they answered correctly, or not, and a gif. If the user does not answer, they are informed that time is up. A results page is provided at the end of the game.
+
+
 Credits
 Kiley Adams developed and designed this app.
 
